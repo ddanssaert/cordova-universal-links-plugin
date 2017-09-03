@@ -13,11 +13,15 @@ public class ULHost {
     // default event name, that is dispatched to JS if none was set to the host or path
     private static final String DEFAULT_EVENT = "didLaunchAppFromLink";
 
+    // default port for the host
+    private static final int DEFAULT_PORT = -1;
+
     // default scheme for the host
     private static final String DEFAULT_SCHEME = "http";
 
     private final List<ULPath> paths;
     private final String name;
+    private final int port;
     private final String scheme;
     private String event;
 
@@ -25,11 +29,13 @@ public class ULHost {
      * Constructor
      *
      * @param name   host name
+     * @param port   host port
      * @param scheme host scheme
      * @param event  event that corresponds to this host
      */
-    public ULHost(final String name, final String scheme, final String event) {
+    public ULHost(final String name, final String port, final String scheme, final String event) {
         this.name = name.toLowerCase();
+        this.port = (port == null) ? DEFAULT_PORT : Integer.parseInt(port);
         this.scheme = (scheme == null) ? DEFAULT_SCHEME : scheme;
         this.event = (event == null) ? DEFAULT_EVENT : event;
         this.paths = new ArrayList<ULPath>();
@@ -71,6 +77,16 @@ public class ULHost {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Getter for the host port.
+     * Defined as 'port' attribute.
+     *
+     * @return host port
+     */
+    public int getPort() {
+        return port;
     }
 
     /**
